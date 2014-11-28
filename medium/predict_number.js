@@ -1,29 +1,20 @@
-var Sequencer = function () {
-  this.sequence = "0";
-}
+var Sequencer = function () {}
 
 Sequencer.prototype = {
   getNthSequenceChar: function (n) {
-    while(this.sequence.length < n) {
-      console.log(this.sequence.length);
-      this.next();
+    var nth = 0;
+    while(n > 0){
+      n = n - Math.pow( 2, Math.floor( Math.log(n) / Math.log(2) ) );
+      nth = nth == 2 ? 0 : nth+1;
     }
-    return this.sequence.charAt(n);
-  },
-  next: function() {
-    var seq = this.sequence.substring();
-    for (var i = 0; i < seq.length; i++) {
-      var j = parseInt(seq.charAt(i));
-      this.sequence += (j < 2) ? j+1 : 0;
-    }
+    return nth;
   }
 }
 
 var s = new Sequencer();
 var fs = require("fs");
-fs.readFileSync(process.argv[2]).toString().split('\n').forEach(function (line){ 
+fs.readFileSync(process.argv[2]).toString().split('\n').forEach(function (line){
 	if(line != ""){
-		console.log( s.getNthSequenceChar(line));
-    // console.log(line);
+		console.log(s.getNthSequenceChar(parseInt(line)));
 	}
 });

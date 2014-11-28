@@ -82,9 +82,8 @@ var distances = [];
 
 fs.readFileSync(process.argv[2]).toString().split('\n').forEach(function (line) {
   if (line != "") {
-    var args = line.split(" | ");
-    var i = args[0];
-    var location  =  args[1].match(/\((.*)\)/)[1].split(", ");
+    var args = line.replace(/(^\(\[)|(\]\)$)/,"").split("], [");
+    // var location  =  args[1].match(/\((.*)\)/)[1].split(", ");
     var c = new Node(location[0],location[1],initialTour.length+1);
     initialTour.push(c);
   }
