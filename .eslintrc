@@ -1,0 +1,18 @@
+{
+  "extends": "airbnb",
+  "ecmaFeatures": {
+    "modules": true
+  },
+  "globals": {
+    "describe": false,
+    "expect": false,
+    "beforeEach": false,
+    "it": false,
+  },
+  "rules": {
+    "new-cap": 0,
+    "id-length": 0,
+    "func-names": 0,
+    "no-var": 0
+  }
+}
