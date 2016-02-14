@@ -1,4 +1,4 @@
-var fs  = require("fs");
+const fs = require('fs');
 var WineMatcher = function() { };
 
 WineMatcher.prototype = {
@@ -8,11 +8,16 @@ WineMatcher.prototype = {
     return parsed.wines.filter(matchFunc);
   },
   contains: function(sub, word) {
-    var result = sub.split('');
-    word.toLowerCase().split('').forEach(function(letter) {
-      if(letter === result[0]) result.shift();
+    var result = true;
+    sub.split('').forEach( l => {
+      const idx = word.indexOf(l);
+      if ( idx > -1 ) {
+        word = word.slice(0, idx) + word.slice(idx + 1);
+      } else {
+        result = false;
+      }
     });
-    return !result.length;
+    return result;
   },
   parseLine: function(line) {
     var split = line.split(' | ');
@@ -23,14 +28,14 @@ WineMatcher.prototype = {
   },
 };
 
-// var wineMatcher = new WineMatcher();
-//
-// fs.readFileSync(process.argv[2]).toString().split('\n').forEach(function (line) {
-//     if (line !== "") {
-//       var matches = wineMatcher.processCase(line);
-//       var answer = matches.length ? matches.join(" ") : "False";
-//       console.log(answer);
-//     }
-// });
+const wineMatcher = new WineMatcher();
+
+fs.readFileSync(process.argv[2]).toString().split('\n').forEach((line) => {
+  if (line !== '') {
+    const matches = wineMatcher.processCase(line);
+    const answer = matches.length ? matches.join(' ') : 'False';
+    console.log(answer);
+  }
+});
 
 module.exports = WineMatcher;
